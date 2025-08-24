@@ -26,8 +26,8 @@ export default function Carousel3({ images = [] }) {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
-                width: isHovered ? sizes.hover[0] : sizes.base[0],
-                height: isHovered ? sizes.hover[1] : sizes.base[1],
+                width: sizes.base[0],
+                height: sizes.base[1],
                 marginTop: isEven ? 120 : 0,
                 flexShrink: 0,
                 zIndex: isHovered ? 20 : 10 - index
@@ -36,7 +36,7 @@ export default function Carousel3({ images = [] }) {
               <div 
                 className="w-full h-full bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
                 style={{
-                  transform: `scale(${isHovered ? 1.05 : 1}) translateX(${shouldShiftLeft ? -30 : shouldShiftRight ? 30 : 0}px)`,
+                  transform: `scale(${isHovered ? 1.125 : 1}) translateX(${shouldShiftLeft ? -30 : shouldShiftRight ? 30 : 0}px)`,
                   transformOrigin: 'center',
                   filter: `blur(${isOtherHovered ? 4 : 0}px)`
                 }}
