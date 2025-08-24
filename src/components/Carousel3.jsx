@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Carousel3({ images = [] }) {
+export default function Carousel3({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   if (!images?.length) return null;
@@ -25,6 +25,7 @@ export default function Carousel3({ images = [] }) {
               }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => onImageClick && onImageClick(image.id)}
               style={{
                 width: sizes.base[0],
                 height: sizes.base[1],
