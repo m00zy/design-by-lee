@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 
 export default function ProjectPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setIsVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
   
   const project = projects.find(p => p.id === projectId);
   
@@ -24,7 +31,7 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen bg-white transition-opacity duration-1000 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       {/* Header */}
       <div className="border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-4">
