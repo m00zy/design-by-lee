@@ -2,6 +2,49 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 
+// Component to render text with links
+function TextWithLinks({ text, links = [] }) {
+  const renderTextWithLinks = (text) => {
+    if (!links.length) return text;
+    
+    let result = text;
+    links.forEach((link) => {
+      const linkElement = (
+        <a 
+          key={link.text}
+          href={link.url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-gray-600 hover:text-gray-900 transition-colors cursor-pointer border-b border-gray-300 hover:border-gray-600"
+        >
+          {link.text}
+        </a>
+      );
+      
+      // Split text by the link text and insert the link element
+      const parts = result.split(link.text);
+      result = parts.reduce((acc, part, index) => {
+        if (index === 0) return [part];
+        return [...acc, linkElement, part];
+      }, []);
+    });
+    
+    return result;
+  };
+
+  return (
+    <div className="text-lg text-gray-600 mb-8 leading-relaxed">
+      {text.split('\n').map((paragraph, index) => (
+        paragraph.trim() && (
+          <p key={index} className="mb-4 last:mb-0">
+            {renderTextWithLinks(paragraph)}
+          </p>
+        )
+      ))}
+    </div>
+  );
+}
+
 export default function ProjectPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -61,10 +104,11 @@ export default function ProjectPage() {
 
           {/* Project Details */}
           <div className="lg:pt-8">
-            <h1 className="text-4xl font-light mb-4">{project.title}</h1>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              {project.details.fullDescription}
-            </p>
+            <h1 className="text-3xl font-normal mb-4">{project.title}</h1>
+            <TextWithLinks 
+              text={project.details.fullDescription} 
+              links={project.details.links}
+            />
 
             <div className="space-y-6">
               <div>
