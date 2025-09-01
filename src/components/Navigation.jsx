@@ -46,9 +46,11 @@ function Navigation() {
           </a>
 
           <a 
-            href="#linkedin" 
+            href="https://www.linkedin.com/in/marcus-lee-326b99156/" 
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
             aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <svg
               className="w-5 h-5"
