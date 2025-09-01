@@ -8,21 +8,6 @@ function Navigation() {
       </div>
       
       <div className="flex items-center space-x-12">
-        <div className="flex items-center space-x-8">
-          <a
-            href="#info"
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-light text-lg"
-          >
-            Info
-          </a>
-          <a
-            href="#projects"
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-light text-lg"
-          >
-            Projects
-          </a>
-        </div>
-        
         <div className="flex items-center space-x-6">
           <a 
             href="#instagram" 
