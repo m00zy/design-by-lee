@@ -64,7 +64,7 @@ Its aluminum base and carefully selected fabric shade create a perfect balance b
     description:
       'A versatile stool that complements a variety of interior styles.',
     details: {
-      materials: 'Walnut wood, brass',
+      materials: 'Walnut Wood, Brass',
       year: '2024',
       fullDescription: `
 Introducing Rook Stool, a versatile and modern design piece suitable for residential and commercial interior spaces.
