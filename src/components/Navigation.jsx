@@ -2,11 +2,7 @@ import React from 'react';
 
 function Navigation() {
   return (
-    <nav className="flex justify-between items-center px-8 py-4 border-b border-gray-200">
-      <div className="text-2xl font-light text-gray-900 tracking-wide">
-        Design by Lee
-      </div>
-      
+    <nav className="flex justify-end items-center px-8 py-4">
       <div className="flex items-center space-x-12">
         <div className="flex items-center space-x-6">
           <a 
