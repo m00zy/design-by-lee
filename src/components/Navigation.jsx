@@ -10,9 +10,11 @@ function Navigation() {
       <div className="flex items-center space-x-12">
         <div className="flex items-center space-x-6">
           <a 
-            href="#instagram" 
+            href="https://www.instagram.com/marcuslee.design?igsh=aXF2MzFxMnhvYWg5" 
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
             aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <svg
               className="w-5 h-5"
