@@ -115,3 +115,6 @@ firebase-debug.log
 
 # Local Netlify folder
 .netlify
+
+# Specstory
+.specstory
