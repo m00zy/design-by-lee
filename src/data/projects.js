@@ -18,13 +18,13 @@ Hatch explores simple joinery and assembly with a table top that appears to hove
     },
   },
   {
-    id: 'incense_holder',
+    id: 'incense-holder',
     src: '/images/incense-holder/01.jpg',
     title: 'INCENSE HOLDER',
     description:
-      'A versatile stool that complements a variety of interior styles.',
+      'A minimalist incense holder combining brushed aluminum and ash wood.',
     details: {
-      materials: 'Alumnium',
+      materials: 'Aluminum',
       year: '2024',
       fullDescription: `
 This incense holder brings together brushed aluminium and ash wood in a clean, balanced form.
@@ -69,7 +69,7 @@ Its aluminum base and carefully selected fabric shade create a perfect balance b
       fullDescription: `
 Introducing Rook Stool, a versatile and modern design piece suitable for residential and commercial interior spaces.
 
-Made from "American White Oak" stained in black, Rook is an object made to last.
+Made from American White Oak stained in black, Rook is an object made to last.
 
 By using unique woodworking techniques, the seat is supported by a plane, making this its main characteristic and appeal.
 

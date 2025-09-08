@@ -45,7 +45,7 @@ function TextWithLinks({ text, links = [] }) {
   );
 }
 
-export default function ProjectPage() {
+function ProjectPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
@@ -131,3 +131,5 @@ export default function ProjectPage() {
     </div>
   );
 }
+
+export default ProjectPage;

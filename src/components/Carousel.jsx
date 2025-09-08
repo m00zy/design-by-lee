@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function Carousel({ images = [], onImageClick }) {
+function Carousel({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   if (!images?.length) return null;
 
-  const sizes = { base: [240, 378], hover: [270, 425.25] };
+  const SIZES = {
+    base: { width: 240, height: 378 },
+    hover: { width: 270, height: 425.25 }
+  };
+  
+  const ANIMATION = {
+    duration: 500,
+    hoverScale: 1.125,
+    shiftDistance: 30,
+    blurAmount: 4,
+    offsetTop: 120
+  };
 
   return (
     <div className="w-full overflow-hidden flex items-center" style={{ height: '800px' }}>
-      <div className="flex items-start justify-center w-full" style={{ gap: '12px' }}>
+      <div className="flex items-start justify-center w-full" style={{ gap: '24px' }}>
         {images.map((image, index) => {
           const isHovered = hoveredIndex === index;
           const isOtherHovered = hoveredIndex !== null && !isHovered;
@@ -19,17 +30,17 @@ export default function Carousel({ images = [], onImageClick }) {
           
           return (
             <div
-              key={index}
+              key={image.id || index}
               className={`relative transition-all duration-500 ease-out cursor-pointer ${
                 isHovered ? 'z-20' : isOtherHovered ? 'opacity-70' : 'opacity-100'
               }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => onImageClick && onImageClick(image.id)}
+              onClick={() => onImageClick?.(image.id)}
               style={{
-                width: sizes.base[0],
-                height: sizes.base[1],
-                marginTop: isEven ? 120 : 0,
+                width: SIZES.base.width,
+                height: SIZES.base.height,
+                marginTop: isEven ? ANIMATION.offsetTop : 0,
                 flexShrink: 0,
                 zIndex: isHovered ? 20 : 10 - index
               }}
@@ -37,9 +48,9 @@ export default function Carousel({ images = [], onImageClick }) {
               <div 
                 className="w-full h-full bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
                 style={{
-                  transform: `scale(${isHovered ? 1.125 : 1}) translateX(${shouldShiftLeft ? -30 : shouldShiftRight ? 30 : 0}px)`,
+                  transform: `scale(${isHovered ? ANIMATION.hoverScale : 1}) translateX(${shouldShiftLeft ? -ANIMATION.shiftDistance : shouldShiftRight ? ANIMATION.shiftDistance : 0}px)`,
                   transformOrigin: 'center',
-                  filter: `blur(${isOtherHovered ? 4 : 0}px)`
+                  filter: `blur(${isOtherHovered ? ANIMATION.blurAmount : 0}px)`
                 }}
               >
                 <img
@@ -58,8 +69,8 @@ export default function Carousel({ images = [], onImageClick }) {
                       style={{
                         opacity: isHovered ? 1 : 0,
                         transform: `translateY(${isHovered ? 0 : 10}px)`,
-                        width: sizes.base[0],
-                        maxWidth: sizes.base[0]
+                        width: SIZES.base.width,
+                        maxWidth: SIZES.base.width
                       }}
                     >
                       <h3 className="text-sm font-light tracking-wide mb-1">
@@ -81,3 +92,5 @@ export default function Carousel({ images = [], onImageClick }) {
     </div>
   );
 }
+
+export default Carousel;

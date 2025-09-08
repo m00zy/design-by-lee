@@ -1,9 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel';
 import Navigation from './Navigation';
-import { useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 
-export default function Home() {
+function Home() {
   const navigate = useNavigate();
 
   const handleImageClick = (projectId) => {
@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <div className="h-screen overflow-hidden">
       <Navigation />
-      <div>
-        <Carousel images={projects} onImageClick={handleImageClick} />
-      </div>
+      <Carousel images={projects} onImageClick={handleImageClick} />
     </div>
   );
 }
+
+export default Home;

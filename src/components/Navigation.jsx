@@ -1,4 +1,13 @@
-import React from 'react';
+const SOCIAL_LINKS = {
+  instagram: {
+    url: 'https://www.instagram.com/marcuslee.design?igsh=aXF2MzFxMnhvYWg5',
+    label: 'Instagram'
+  },
+  linkedin: {
+    url: 'https://www.linkedin.com/in/marcus-lee-326b99156/',
+    label: 'LinkedIn'
+  }
+};
 
 function Navigation() {
   return (
@@ -6,9 +15,9 @@ function Navigation() {
       <div className="flex items-center space-x-12">
         <div className="flex items-center space-x-6">
           <a 
-            href="https://www.instagram.com/marcuslee.design?igsh=aXF2MzFxMnhvYWg5" 
+            href={SOCIAL_LINKS.instagram.url}
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
-            aria-label="Instagram"
+            aria-label={SOCIAL_LINKS.instagram.label}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -29,9 +38,9 @@ function Navigation() {
           </a>
 
           <a 
-            href="https://www.linkedin.com/in/marcus-lee-326b99156/" 
+            href={SOCIAL_LINKS.linkedin.url}
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
-            aria-label="LinkedIn"
+            aria-label={SOCIAL_LINKS.linkedin.label}
             target="_blank"
             rel="noopener noreferrer"
           >
