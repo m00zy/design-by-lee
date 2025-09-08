@@ -1,7 +1,14 @@
 export const projects = [
   {
     id: 'hatch-coffee-table',
-    src: '/images/hatch-coffee-table/01.jpg',
+    src: 'images/hatch-coffee-table/01.jpg',
+    images: [
+      'images/hatch-coffee-table/01.jpg',
+      'images/hatch-coffee-table/02.jpg',
+      'images/hatch-coffee-table/03.jpg',
+      'images/hatch-coffee-table/04.jpg',
+      'images/hatch-coffee-table/05.jpg'
+    ],
     title: 'HATCH COFFEE TABLE',
     description:
       'A stylish and functional piece suitable for any modern living space.',
@@ -19,7 +26,13 @@ Hatch explores simple joinery and assembly with a table top that appears to hove
   },
   {
     id: 'incense-holder',
-    src: '/images/incense-holder/01.jpg',
+    src: 'images/incense-holder/01.jpg',
+    images: [
+      'images/incense-holder/01.jpg',
+      'images/incense-holder/02.jpg',
+      'images/incense-holder/03.jpg',
+      'images/incense-holder/04.jpg'
+    ],
     title: 'INCENSE HOLDER',
     description:
       'A minimalist incense holder combining brushed aluminum and ash wood.',
@@ -43,7 +56,16 @@ The design is minimal, thoughtful, and focused on the quiet beauty of materials 
   },
   {
     id: 'trace-table-lamp',
-    src: '/images/trace-table-lamp/01.jpg',
+    src: 'images/trace-table-lamp/01.jpg',
+    images: [
+      'images/trace-table-lamp/01.jpg',
+      'images/trace-table-lamp/02.jpg',
+      'images/trace-table-lamp/03.jpg',
+      'images/trace-table-lamp/04.jpg',
+      'images/trace-table-lamp/05.jpg',
+      'images/trace-table-lamp/06.jpg',
+      'images/trace-table-lamp/07.jpg'
+    ],
     title: 'TRACE TABLE LAMP',
     description:
       'A sleek lamp that provides both illumination and aesthetic appeal.',
@@ -59,7 +81,15 @@ Its aluminum base and carefully selected fabric shade create a perfect balance b
   },
   {
     id: 'rook-stool',
-    src: '/images/rook-stool/01.jpg',
+    src: 'images/rook-stool/01.jpg',
+    images: [
+      'images/rook-stool/01.jpg',
+      'images/rook-stool/02.jpg',
+      'images/rook-stool/03.jpg',
+      'images/rook-stool/04.jpg',
+      'images/rook-stool/05.jpg',
+      'images/rook-stool/06.jpg'
+    ],
     title: 'ROOK STOOL',
     description:
       'A versatile stool that complements a variety of interior styles.',
@@ -85,7 +115,12 @@ Available to view and order at Kiosk Store.
   },
   {
     id: 'buoy-couch',
-    src: '/images/buoy-couch/01.jpg',
+    src: 'images/buoy-couch/01.jpg',
+    images: [
+      'images/buoy-couch/01.jpg',
+      'images/buoy-couch/02.jpg',
+      'images/buoy-couch/03.jpg'
+    ],
     title: 'BUOY COUCH',
     description:
       'A plush couch offering the perfect blend of comfort and elegance for any living room.',

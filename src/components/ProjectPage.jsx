@@ -93,13 +93,17 @@ function ProjectPage() {
       {/* Project Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Image */}
-          <div className="aspect-[4/5] bg-gray-100 overflow-hidden">
-            <img 
-              src={project.src} 
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
+          {/* Image Gallery */}
+          <div className="space-y-4">
+            {project.images.map((image, index) => (
+              <div key={index} className="bg-gray-100 overflow-hidden">
+                <img 
+                  src={image} 
+                  alt={`${project.title} ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
 
           {/* Project Details */}
