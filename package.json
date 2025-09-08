@@ -1,6 +1,7 @@
 {
   "name": "design-by-lee",
-  "private": true,
+  "private": false,
+  "homepage": "https://yourusername.github.io/design-by-lee",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
