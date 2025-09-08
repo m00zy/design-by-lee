@@ -1,33 +1,25 @@
-import React from 'react';
+const SOCIAL_LINKS = {
+  instagram: {
+    url: 'https://www.instagram.com/marcuslee.design?igsh=aXF2MzFxMnhvYWg5',
+    label: 'Instagram'
+  },
+  linkedin: {
+    url: 'https://www.linkedin.com/in/marcus-lee-326b99156/',
+    label: 'LinkedIn'
+  }
+};
 
 function Navigation() {
   return (
-    <nav className="flex justify-between items-center px-8 py-4 border-b border-gray-200">
-      <div className="text-2xl font-light text-gray-900 tracking-wide">
-        Design by Lee
-      </div>
-      
+    <nav className="flex justify-end items-center px-8 py-4">
       <div className="flex items-center space-x-12">
-        <div className="flex items-center space-x-8">
-          <a
-            href="#info"
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-light text-lg"
-          >
-            Info
-          </a>
-          <a
-            href="#projects"
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-light text-lg"
-          >
-            Projects
-          </a>
-        </div>
-        
         <div className="flex items-center space-x-6">
           <a 
-            href="#instagram" 
+            href={SOCIAL_LINKS.instagram.url}
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
-            aria-label="Instagram"
+            aria-label={SOCIAL_LINKS.instagram.label}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <svg
               className="w-5 h-5"
@@ -46,9 +38,11 @@ function Navigation() {
           </a>
 
           <a 
-            href="#linkedin" 
+            href={SOCIAL_LINKS.linkedin.url}
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
-            aria-label="LinkedIn"
+            aria-label={SOCIAL_LINKS.linkedin.label}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <svg
               className="w-5 h-5"
