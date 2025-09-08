@@ -1,4 +1,4 @@
-import Carousel from './Carousel3';
+import Carousel from './Carousel';
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';

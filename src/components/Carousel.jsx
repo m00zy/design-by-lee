@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Carousel4({ images = [] }) {
+export default function Carousel({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   if (!images?.length) return null;
@@ -14,6 +14,8 @@ export default function Carousel4({ images = [] }) {
           const isHovered = hoveredIndex === index;
           const isOtherHovered = hoveredIndex !== null && !isHovered;
           const isEven = index % 2 === 0;
+          const shouldShiftLeft = hoveredIndex !== null && index < hoveredIndex;
+          const shouldShiftRight = hoveredIndex !== null && index > hoveredIndex;
           
           return (
             <div
@@ -23,6 +25,7 @@ export default function Carousel4({ images = [] }) {
               }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => onImageClick && onImageClick(image.id)}
               style={{
                 width: sizes.base[0],
                 height: sizes.base[1],
@@ -32,12 +35,10 @@ export default function Carousel4({ images = [] }) {
               }}
             >
               <div 
-                className="absolute inset-0 bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
+                className="w-full h-full bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
                 style={{
-                  width: isHovered ? sizes.hover[0] : sizes.base[0],
-                  height: isHovered ? sizes.hover[1] : sizes.base[1],
-                  transform: `scale(${isHovered ? 1.05 : 1})`,
-                  transformOrigin: 'top left',
+                  transform: `scale(${isHovered ? 1.125 : 1}) translateX(${shouldShiftLeft ? -30 : shouldShiftRight ? 30 : 0}px)`,
+                  transformOrigin: 'center',
                   filter: `blur(${isOtherHovered ? 4 : 0}px)`
                 }}
               >

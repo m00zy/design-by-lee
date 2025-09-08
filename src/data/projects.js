@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: 'hatch-coffee-table',
-    src: '/images/01/img2.JPG',
+    src: '/images/hatch-coffee-table/01.jpg',
     title: 'HATCH COFFEE TABLE',
     description:
       'A stylish and functional piece suitable for any modern living space.',
@@ -19,7 +19,7 @@ Hatch explores simple joinery and assembly with a table top that appears to hove
   },
   {
     id: 'incense_holder',
-    src: '/images/Incense Holder/incense 4.jpg',
+    src: '/images/incense-holder/01.jpg',
     title: 'INCENSE HOLDER',
     description:
       'A versatile stool that complements a variety of interior styles.',
@@ -43,7 +43,7 @@ The design is minimal, thoughtful, and focused on the quiet beauty of materials 
   },
   {
     id: 'trace-table-lamp',
-    src: '/images/03/img1.jpg',
+    src: '/images/trace-table-lamp/01.jpg',
     title: 'TRACE TABLE LAMP',
     description:
       'A sleek lamp that provides both illumination and aesthetic appeal.',
@@ -59,7 +59,7 @@ Its aluminum base and carefully selected fabric shade create a perfect balance b
   },
   {
     id: 'rook-stool',
-    src: '/images/02/img1.jpg',
+    src: '/images/rook-stool/01.jpg',
     title: 'ROOK STOOL',
     description:
       'A versatile stool that complements a variety of interior styles.',
@@ -85,7 +85,7 @@ Available to view and order at Kiosk Store.
   },
   {
     id: 'buoy-couch',
-    src: '/images/05/img1.jpg',
+    src: '/images/buoy-couch/01.jpg',
     title: 'BUOY COUCH',
     description:
       'A plush couch offering the perfect blend of comfort and elegance for any living room.',
