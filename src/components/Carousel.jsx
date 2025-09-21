@@ -5,13 +5,18 @@ function Carousel({ images = [], onImageClick }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
 
+  // Helper function to get image source
+  const getImageSrc = useCallback((image) => {
+    if (typeof image === 'string') return image;
+    return image.images?.[0] || image.src || image;
+  }, []);
+
   useEffect(() => {
     const checkMobile = () => {
       const newIsMobile = window.innerWidth < 768;
       if (newIsMobile !== isMobile) {
         setIsResizing(true);
         setIsMobile(newIsMobile);
-        // Reset resizing flag after a short delay
         setTimeout(() => setIsResizing(false), 100);
       }
     };
@@ -20,14 +25,13 @@ function Carousel({ images = [], onImageClick }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, [isMobile]);
 
-  // Memoize event handlers to prevent unnecessary re-renders
   const handleMouseEnter = useCallback((index) => {
-    if (!isMobile) setHoveredIndex(index);
-  }, [isMobile]);
+    setHoveredIndex(index);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
-    if (!isMobile) setHoveredIndex(null);
-  }, [isMobile]);
+    setHoveredIndex(null);
+  }, []);
 
   const handleImageClick = useCallback((imageId) => {
     onImageClick?.(imageId);
@@ -36,8 +40,7 @@ function Carousel({ images = [], onImageClick }) {
   if (!images?.length) return null;
 
   const SIZES = {
-    base: isMobile ? { width: 340, height: 536 } : { width: 'clamp(160px, 12vw, 240px)', height: 'clamp(252px, 18.9vw, 378px)' },
-    hover: isMobile ? { width: 382.5, height: 603 } : { width: 270, height: 425.25 }
+    base: isMobile ? { width: 340, height: 536 } : { width: 'clamp(160px, 12vw, 240px)', height: 'clamp(252px, 18.9vw, 378px)' }
   };
   
   const ANIMATION = {
@@ -48,37 +51,43 @@ function Carousel({ images = [], onImageClick }) {
     verticalOffset: 60
   };
 
-  // Preload critical images for faster loading
+  // Centralized transition strings
+  const baseTransition = `${ANIMATION.duration}ms ease-out`;
+  const TRANSITIONS = {
+    opacity: `opacity ${baseTransition}`,
+    transform: `transform ${baseTransition}`,
+    filter: `filter ${baseTransition}`,
+    background: `background-color ${baseTransition}`,
+    transformAndFilter: `transform ${baseTransition}, filter ${baseTransition}`,
+    opacityAndTransform: `opacity ${baseTransition}, transform ${baseTransition}`
+  };
+
   useEffect(() => {
-    // Preload first 3 images for instant display
     const criticalImages = images.slice(0, 3);
     criticalImages.forEach((image) => {
       const img = new Image();
-      img.src = image.src || image;
+      img.src = getImageSrc(image);
     });
 
-    // Prefetch next batch of images for smoother scrolling
     const prefetchImages = images.slice(3, 6);
     prefetchImages.forEach((image) => {
       const link = document.createElement('link');
       link.rel = 'prefetch';
-      link.href = image.src || image;
+      link.href = getImageSrc(image);
       link.as = 'image';
       document.head.appendChild(link);
     });
 
-    // Cleanup prefetch links on unmount
     return () => {
       const prefetchLinks = document.querySelectorAll('link[rel="prefetch"][as="image"]');
       prefetchLinks.forEach(link => {
-        if (prefetchImages.some(img => (img.src || img) === link.href)) {
+        if (prefetchImages.some(img => getImageSrc(img) === link.href)) {
           document.head.removeChild(link);
         }
       });
     };
   }, [images]);
 
-  // Memoize image calculations to prevent recalculation on every render
   const imageStates = useMemo(() => {
     return images.map((image, index) => ({
       isHovered: hoveredIndex === index,
@@ -107,7 +116,7 @@ function Carousel({ images = [], onImageClick }) {
             <div
               key={image.id || index}
               className={`project-card relative cursor-pointer ${
-                state.isHovered ? 'z-20' : state.isOtherHovered ? 'opacity-70' : 'opacity-100'
+                state.isHovered ? 'z-20' : state.isOtherHovered ? 'opacity-70' : ''
               }`}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -118,7 +127,7 @@ function Carousel({ images = [], onImageClick }) {
                 flexShrink: 0,
                 zIndex: state.isHovered ? 20 : 10 - index,
                 willChange: 'transform, opacity',
-                transition: 'opacity 500ms ease-out'
+                transition: TRANSITIONS.opacity
               }}
             >
               <div 
@@ -128,11 +137,11 @@ function Carousel({ images = [], onImageClick }) {
                   transformOrigin: 'center',
                   filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
                   willChange: 'transform, filter',
-                  transition: isResizing ? 'none' : 'transform 500ms ease-out, filter 500ms ease-out'
+                  transition: isResizing ? 'none' : TRANSITIONS.transformAndFilter
                 }}
               >
                 <img
-                  src={image.src || image}
+                  src={getImageSrc(image)}
                   alt={image.alt || `Image ${index + 1}`}
                   className="w-full h-full object-cover"
                   style={{ objectPosition: image.objectPosition || 'center' }}
@@ -149,7 +158,7 @@ function Carousel({ images = [], onImageClick }) {
                     style={{ 
                       backgroundColor: `rgba(0,0,0,${state.isHovered && !isMobile ? 0.2 : 0})`,
                       willChange: 'background-color',
-                      transition: 'background-color 500ms ease-out'
+                      transition: TRANSITIONS.background
                     }}
                   >
                     <div 
@@ -158,9 +167,8 @@ function Carousel({ images = [], onImageClick }) {
                         opacity: state.isHovered && !isMobile ? 1 : 0,
                         transform: `translateY(${state.isHovered && !isMobile ? 0 : 10}px)`,
                         width: SIZES.base.width,
-                        maxWidth: SIZES.base.width,
                         willChange: 'opacity, transform',
-                        transition: 'opacity 500ms ease-out, transform 500ms ease-out'
+                        transition: TRANSITIONS.opacityAndTransform
                       }}
                     >
                       <h3 className="text-sm font-light tracking-wide mb-1">

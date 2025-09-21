@@ -9,6 +9,8 @@ const SOCIAL_LINKS = {
   }
 };
 
+const SOCIAL_LINK_CLASSES = "text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full";
+
 function Navigation() {
   return (
     <nav className="flex justify-end items-center px-8 py-4">
@@ -16,7 +18,7 @@ function Navigation() {
         <div className="flex items-center space-x-6">
           <a 
             href={SOCIAL_LINKS.instagram.url}
-            className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
+            className={SOCIAL_LINK_CLASSES}
             aria-label={SOCIAL_LINKS.instagram.label}
             target="_blank"
             rel="noopener noreferrer"
@@ -39,7 +41,7 @@ function Navigation() {
 
           <a 
             href={SOCIAL_LINKS.linkedin.url}
-            className="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
+            className={SOCIAL_LINK_CLASSES}
             aria-label={SOCIAL_LINKS.linkedin.label}
             target="_blank"
             rel="noopener noreferrer"

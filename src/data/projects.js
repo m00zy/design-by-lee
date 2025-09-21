@@ -1,7 +1,6 @@
 export const projects = [
   {
     id: 'hatch-coffee-table',
-    src: 'images/hatch-coffee-table/01.jpg',
     images: [
       'images/hatch-coffee-table/01.jpg',
       'images/hatch-coffee-table/02.jpg',
@@ -26,7 +25,6 @@ Hatch explores simple joinery and assembly with a table top that appears to hove
   },
   {
     id: 'rook-stool',
-    src: 'images/rook-stool/01.jpg',
     images: [
       'images/rook-stool/01.jpg',
       'images/rook-stool/02.jpg',
@@ -60,7 +58,6 @@ Available to view and order at Kiosk Store.
   },
   {
     id: 'incense-holder',
-    src: 'images/incense-holder/01.jpg',
     objectPosition: '40%',
     images: [
       'images/incense-holder/01.jpg',
@@ -84,14 +81,13 @@ The design is minimal, thoughtful, and focused on the quiet beauty of materials 
       links: [
         {
           text: 'Kiosk Store',
-          url: 'https://www.kiosk-store.com/shop/p/rook-stool-by-new-formed-objects',
+          url: 'https://www.kiosk-store.com/shop/p/incense-holder-by-new-formed-objects',
         },
       ],
     },
   },
   {
     id: 'continuum-coffee-table',
-    src: 'images/continuum-coffee-table/01.jpg',
     images: [
       'images/continuum-coffee-table/01.jpg',
       'images/continuum-coffee-table/02.jpg'
@@ -107,7 +103,6 @@ The design is minimal, thoughtful, and focused on the quiet beauty of materials 
   },
   {
     id: 'buoy-couch',
-    src: 'images/buoy-couch/01.jpg',
     images: [
       'images/buoy-couch/01.jpg',
       'images/buoy-couch/02.jpg',
@@ -126,7 +121,6 @@ The Buoy Couch is a conceptual piece designed to suit both residential and comme
   },
   {
     id: 'trace-table-lamp',
-    src: 'images/trace-table-lamp/01.jpg',
     images: [
       'images/trace-table-lamp/01.jpg',
       'images/trace-table-lamp/02.jpg',
