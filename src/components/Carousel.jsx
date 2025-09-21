@@ -57,6 +57,7 @@ function Carousel({ images = [], onImageClick }) {
                   src={image.src || image}
                   alt={image.alt || `Image ${index + 1}`}
                   className="w-full h-full object-cover"
+                  style={{ objectPosition: image.objectPosition || 'center' }}
                 />
                 
                 {image.title && (
