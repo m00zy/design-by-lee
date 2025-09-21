@@ -125,10 +125,7 @@ The Buoy Couch is a conceptual piece designed to suit both residential and comme
       'images/trace-table-lamp/01.jpg',
       'images/trace-table-lamp/02.jpg',
       'images/trace-table-lamp/03.jpg',
-      'images/trace-table-lamp/04.jpg',
-      'images/trace-table-lamp/05.jpg',
-      'images/trace-table-lamp/06.jpg',
-      'images/trace-table-lamp/07.jpg'
+      'images/trace-table-lamp/04.jpg'
     ],
     title: 'TRACE TABLE LAMP',
     description:
