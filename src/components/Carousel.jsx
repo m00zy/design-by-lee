@@ -81,8 +81,13 @@ function Carousel({ images = [], onImageClick }) {
   }, [hoveredIndex, images.length]);
 
   return (
-    <div className="w-full flex items-center h-auto md:h-[800px] md:overflow-hidden">
-      <div className="flex flex-col md:flex-row items-center md:items-start justify-center w-full" style={{ gap: '24px' }}>
+    <div className={`w-full flex items-center ${isMobile ? 'h-auto' : 'h-auto md:h-[800px] md:overflow-hidden'}`}>
+      <div 
+        className={`flex items-center justify-center w-full ${
+          isMobile ? 'flex-col' : 'flex-row items-start'
+        }`} 
+        style={{ gap: '24px' }}
+      >
         {images.map((image, index) => {
           const state = imageStates[index];
           
