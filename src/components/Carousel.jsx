@@ -3,13 +3,22 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 function Carousel({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => {
+      const newIsMobile = window.innerWidth < 768;
+      if (newIsMobile !== isMobile) {
+        setIsResizing(true);
+        setIsMobile(newIsMobile);
+        // Reset resizing flag after a short delay
+        setTimeout(() => setIsResizing(false), 100);
+      }
+    };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isMobile]);
 
   // Memoize event handlers to prevent unnecessary re-renders
   const handleMouseEnter = useCallback((index) => {
@@ -34,9 +43,9 @@ function Carousel({ images = [], onImageClick }) {
   const ANIMATION = {
     duration: 500,
     hoverScale: 1.125,
-    shiftDistance: 30,
+    shiftDistance: 20,
     blurAmount: 4,
-    offsetTop: 120
+    verticalOffset: 60
   };
 
   // Preload critical images for faster loading
@@ -86,7 +95,10 @@ function Carousel({ images = [], onImageClick }) {
         className={`flex items-center justify-center w-full ${
           isMobile ? 'flex-col' : 'flex-row items-start'
         }`} 
-        style={{ gap: '24px' }}
+        style={{ 
+          gap: '24px',
+          transform: isMobile ? 'none' : 'translateY(-60px)'
+        }}
       >
         {images.map((image, index) => {
           const state = imageStates[index];
@@ -112,11 +124,11 @@ function Carousel({ images = [], onImageClick }) {
               <div 
                 className="w-full h-full bg-white shadow-lg overflow-hidden"
                 style={{
-                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px)`,
+                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? 0 : ANIMATION.verticalOffset)}px)`,
                   transformOrigin: 'center',
                   filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
                   willChange: 'transform, filter',
-                  transition: 'transform 500ms ease-out, filter 500ms ease-out'
+                  transition: isResizing ? 'none' : 'transform 500ms ease-out, filter 500ms ease-out'
                 }}
               >
                 <img
