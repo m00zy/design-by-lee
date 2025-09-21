@@ -51,9 +51,12 @@ function ProjectPage() {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
+    // Scroll to top when component mounts or projectId changes
+    window.scrollTo(0, 0);
+    
     const id = requestAnimationFrame(() => setIsVisible(true));
     return () => cancelAnimationFrame(id);
-  }, []);
+  }, [projectId]);
   
   const project = projects.find(p => p.id === projectId);
   
