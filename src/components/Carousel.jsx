@@ -39,6 +39,36 @@ function Carousel({ images = [], onImageClick }) {
     offsetTop: 120
   };
 
+  // Preload critical images for faster loading
+  useEffect(() => {
+    // Preload first 3 images for instant display
+    const criticalImages = images.slice(0, 3);
+    criticalImages.forEach((image) => {
+      const img = new Image();
+      img.src = image.src || image;
+    });
+
+    // Prefetch next batch of images for smoother scrolling
+    const prefetchImages = images.slice(3, 6);
+    prefetchImages.forEach((image) => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = image.src || image;
+      link.as = 'image';
+      document.head.appendChild(link);
+    });
+
+    // Cleanup prefetch links on unmount
+    return () => {
+      const prefetchLinks = document.querySelectorAll('link[rel="prefetch"][as="image"]');
+      prefetchLinks.forEach(link => {
+        if (prefetchImages.some(img => (img.src || img) === link.href)) {
+          document.head.removeChild(link);
+        }
+      });
+    };
+  }, [images]);
+
   // Memoize image calculations to prevent recalculation on every render
   const imageStates = useMemo(() => {
     return images.map((image, index) => ({
@@ -59,7 +89,7 @@ function Carousel({ images = [], onImageClick }) {
           return (
             <div
               key={image.id || index}
-              className={`project-card relative transition-all duration-500 ease-out cursor-pointer ${
+              className={`project-card relative cursor-pointer ${
                 state.isHovered ? 'z-20' : state.isOtherHovered ? 'opacity-70' : 'opacity-100'
               }`}
               onMouseEnter={() => handleMouseEnter(index)}
@@ -70,16 +100,18 @@ function Carousel({ images = [], onImageClick }) {
                 height: SIZES.base.height,
                 flexShrink: 0,
                 zIndex: state.isHovered ? 20 : 10 - index,
-                willChange: 'transform, opacity'
+                willChange: 'transform, opacity',
+                transition: 'opacity 500ms ease-out'
               }}
             >
               <div 
-                className="w-full h-full bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
+                className="w-full h-full bg-white shadow-lg overflow-hidden"
                 style={{
                   transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px)`,
                   transformOrigin: 'center',
                   filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
-                  willChange: 'transform, filter'
+                  willChange: 'transform, filter',
+                  transition: 'transform 500ms ease-out, filter 500ms ease-out'
                 }}
               >
                 <img
@@ -87,24 +119,31 @@ function Carousel({ images = [], onImageClick }) {
                   alt={image.alt || `Image ${index + 1}`}
                   className="w-full h-full object-cover"
                   style={{ objectPosition: image.objectPosition || 'center' }}
+                  loading={index < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  width={image.width}
+                  height={image.height}
                 />
                 
                 {image.title && (
                   <div 
-                    className="absolute inset-0 flex items-end transition-all duration-500 ease-out"
+                    className="absolute inset-0 flex items-end"
                     style={{ 
-                      backgroundColor: `rgba(0,0,0,${state.isHovered || isMobile ? 0.2 : 0})`,
-                      willChange: 'background-color'
+                      backgroundColor: `rgba(0,0,0,${state.isHovered && !isMobile ? 0.2 : 0})`,
+                      willChange: 'background-color',
+                      transition: 'background-color 500ms ease-out'
                     }}
                   >
                     <div 
-                      className="p-4 text-white transition-all duration-500 ease-out"
+                      className="p-4 text-white"
                       style={{
-                        opacity: state.isHovered || isMobile ? 1 : 0,
-                        transform: `translateY(${state.isHovered || isMobile ? 0 : 10}px)`,
+                        opacity: state.isHovered && !isMobile ? 1 : 0,
+                        transform: `translateY(${state.isHovered && !isMobile ? 0 : 10}px)`,
                         width: SIZES.base.width,
                         maxWidth: SIZES.base.width,
-                        willChange: 'opacity, transform'
+                        willChange: 'opacity, transform',
+                        transition: 'opacity 500ms ease-out, transform 500ms ease-out'
                       }}
                     >
                       <h3 className="text-sm font-light tracking-wide mb-1">
