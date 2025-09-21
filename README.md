@@ -30,11 +30,12 @@ npm run build
 
 ## Projects
 
-- **Hatch Coffee Table** - Pine timber design inspired by Japanese architecture
-- **Rook Stool** - Walnut and brass stool with unique woodworking
-- **Trace Table Lamp** - Minimalist aluminum lamp
-- **Incense Holder** - Brushed aluminum and ash wood design
-- **Buoy Couch** - Solid oak conceptual seating
+- **Hatch Coffee Table** (2024) - Pine timber design inspired by Japanese architecture with clean lines and minimalist aesthetic
+- **Rook Stool** (2024) - American White Oak stool with unique woodworking techniques, featuring a plane-supported seat design
+- **Incense Holder** (2025) - Minimalist design combining brushed aluminum and ash wood in a clean, balanced form
+- **Continuum Coffee Table** (2025) - Single-sheet aluminum coffee table designed to appear seamless with no visible welds
+- **Buoy Couch** (2023) - Solid oak conceptual seating piece balancing functionality and sculptural presence
+- **Trace Table Lamp** (2025) - American White Oak and glass lamp embodying minimalist design principles
 
 ## Deployment
 
