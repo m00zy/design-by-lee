@@ -73,7 +73,7 @@ Available to view and order at Kiosk Store.
       'A minimalist incense holder combining brushed aluminum and ash wood.',
     details: {
       materials: 'Aluminum',
-      year: '2024',
+      year: '2025',
       fullDescription: `
 This incense holder brings together brushed aluminium and ash wood in a clean, balanced form.
 
@@ -140,7 +140,7 @@ The Buoy Couch is a conceptual piece designed to suit both residential and comme
     description:
       'A sleek lamp that provides both illumination and aesthetic appeal.',
     details: {
-      materials: 'Aluminum',
+      materials: 'American White Oak + Glass',
       year: '2025',
       fullDescription: `
 The Trace Table Lamp embodies minimalist design principles while providing warm, ambient lighting.
