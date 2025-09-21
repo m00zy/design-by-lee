@@ -11,7 +11,7 @@ function Home() {
   };
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="min-h-screen">
       <Navigation />
       <Carousel images={projects} onImageClick={handleImageClick} />
     </div>

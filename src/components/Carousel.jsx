@@ -1,76 +1,174 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 function Carousel({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // Helper function to get image source
+  const getImageSrc = useCallback((image) => {
+    if (typeof image === 'string') return image;
+    return image.images?.[0] || image.src || image;
+  }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const newIsMobile = window.innerWidth < 768;
+      if (newIsMobile !== isMobile) {
+        setIsResizing(true);
+        setIsMobile(newIsMobile);
+        setTimeout(() => setIsResizing(false), 100);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [isMobile]);
+
+  const handleMouseEnter = useCallback((index) => {
+    setHoveredIndex(index);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredIndex(null);
+  }, []);
+
+  const handleImageClick = useCallback((imageId) => {
+    onImageClick?.(imageId);
+  }, [onImageClick]);
 
   if (!images?.length) return null;
 
   const SIZES = {
-    base: { width: 240, height: 378 },
-    hover: { width: 270, height: 425.25 }
+    base: isMobile ? { width: 340, height: 536 } : { width: 'clamp(160px, 12vw, 240px)', height: 'clamp(252px, 18.9vw, 378px)' }
   };
   
   const ANIMATION = {
     duration: 500,
     hoverScale: 1.125,
-    shiftDistance: 30,
+    shiftDistance: 20,
     blurAmount: 4,
-    offsetTop: 120
+    verticalOffset: 60
   };
 
+  // Centralized transition strings
+  const baseTransition = `${ANIMATION.duration}ms ease-out`;
+  const TRANSITIONS = {
+    opacity: `opacity ${baseTransition}`,
+    transform: `transform ${baseTransition}`,
+    filter: `filter ${baseTransition}`,
+    background: `background-color ${baseTransition}`,
+    transformAndFilter: `transform ${baseTransition}, filter ${baseTransition}`,
+    opacityAndTransform: `opacity ${baseTransition}, transform ${baseTransition}`
+  };
+
+  useEffect(() => {
+    const criticalImages = images.slice(0, 3);
+    criticalImages.forEach((image) => {
+      const img = new Image();
+      img.src = getImageSrc(image);
+    });
+
+    const prefetchImages = images.slice(3, 6);
+    prefetchImages.forEach((image) => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = getImageSrc(image);
+      link.as = 'image';
+      document.head.appendChild(link);
+    });
+
+    return () => {
+      const prefetchLinks = document.querySelectorAll('link[rel="prefetch"][as="image"]');
+      prefetchLinks.forEach(link => {
+        if (prefetchImages.some(img => getImageSrc(img) === link.href)) {
+          document.head.removeChild(link);
+        }
+      });
+    };
+  }, [images]);
+
+  const imageStates = useMemo(() => {
+    return images.map((image, index) => ({
+      isHovered: hoveredIndex === index,
+      isOtherHovered: hoveredIndex !== null && hoveredIndex !== index,
+      isEven: index % 2 === 0,
+      shouldShiftLeft: hoveredIndex !== null && index < hoveredIndex,
+      shouldShiftRight: hoveredIndex !== null && index > hoveredIndex,
+    }));
+  }, [hoveredIndex, images.length]);
+
   return (
-    <div className="w-full overflow-hidden flex items-center" style={{ height: '800px' }}>
-      <div className="flex items-start justify-center w-full" style={{ gap: '24px' }}>
+    <div className={`w-full flex items-center ${isMobile ? 'h-auto' : 'h-auto md:h-[800px] md:overflow-hidden'}`}>
+      <div 
+        className={`flex items-center justify-center w-full ${
+          isMobile ? 'flex-col' : 'flex-row items-start'
+        }`} 
+        style={{ 
+          gap: '24px',
+          transform: isMobile ? 'none' : 'translateY(-60px)'
+        }}
+      >
         {images.map((image, index) => {
-          const isHovered = hoveredIndex === index;
-          const isOtherHovered = hoveredIndex !== null && !isHovered;
-          const isEven = index % 2 === 0;
-          const shouldShiftLeft = hoveredIndex !== null && index < hoveredIndex;
-          const shouldShiftRight = hoveredIndex !== null && index > hoveredIndex;
+          const state = imageStates[index];
           
           return (
             <div
               key={image.id || index}
-              className={`relative transition-all duration-500 ease-out cursor-pointer ${
-                isHovered ? 'z-20' : isOtherHovered ? 'opacity-70' : 'opacity-100'
+              className={`project-card relative cursor-pointer ${
+                state.isHovered ? 'z-20' : state.isOtherHovered ? 'opacity-70' : ''
               }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => onImageClick?.(image.id)}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleImageClick(image.id)}
               style={{
                 width: SIZES.base.width,
                 height: SIZES.base.height,
-                marginTop: isEven ? ANIMATION.offsetTop : 0,
                 flexShrink: 0,
-                zIndex: isHovered ? 20 : 10 - index
+                zIndex: state.isHovered ? 20 : 10 - index,
+                willChange: 'transform, opacity',
+                transition: TRANSITIONS.opacity
               }}
             >
               <div 
-                className="w-full h-full bg-white shadow-lg overflow-hidden transition-all duration-500 ease-out"
+                className="w-full h-full bg-white shadow-lg overflow-hidden"
                 style={{
-                  transform: `scale(${isHovered ? ANIMATION.hoverScale : 1}) translateX(${shouldShiftLeft ? -ANIMATION.shiftDistance : shouldShiftRight ? ANIMATION.shiftDistance : 0}px)`,
+                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? 0 : ANIMATION.verticalOffset)}px)`,
                   transformOrigin: 'center',
-                  filter: `blur(${isOtherHovered ? ANIMATION.blurAmount : 0}px)`
+                  filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
+                  willChange: 'transform, filter',
+                  transition: isResizing ? 'none' : TRANSITIONS.transformAndFilter
                 }}
               >
                 <img
-                  src={image.src || image}
+                  src={getImageSrc(image)}
                   alt={image.alt || `Image ${index + 1}`}
                   className="w-full h-full object-cover"
+                  style={{ objectPosition: image.objectPosition || 'center' }}
+                  loading={index < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  width={image.width}
+                  height={image.height}
                 />
                 
                 {image.title && (
                   <div 
-                    className="absolute inset-0 flex items-end transition-all duration-500 ease-out"
-                    style={{ backgroundColor: `rgba(0,0,0,${isHovered ? 0.2 : 0})` }}
+                    className="absolute inset-0 flex items-end"
+                    style={{ 
+                      backgroundColor: `rgba(0,0,0,${state.isHovered && !isMobile ? 0.2 : 0})`,
+                      willChange: 'background-color',
+                      transition: TRANSITIONS.background
+                    }}
                   >
                     <div 
-                      className="p-4 text-white transition-all duration-500 ease-out"
+                      className="p-4 text-white"
                       style={{
-                        opacity: isHovered ? 1 : 0,
-                        transform: `translateY(${isHovered ? 0 : 10}px)`,
+                        opacity: state.isHovered && !isMobile ? 1 : 0,
+                        transform: `translateY(${state.isHovered && !isMobile ? 0 : 10}px)`,
                         width: SIZES.base.width,
-                        maxWidth: SIZES.base.width
+                        willChange: 'opacity, transform',
+                        transition: TRANSITIONS.opacityAndTransform
                       }}
                     >
                       <h3 className="text-sm font-light tracking-wide mb-1">
