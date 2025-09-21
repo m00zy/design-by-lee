@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  @media (min-width: 768px) {
+    .project-card:nth-child(even) {
+      margin-top: 120px;
+    }
+  }
+  
+  /* Prevent transitions during viewport changes */
+  .no-transition {
+    transition: none !important;
+  }
+}
