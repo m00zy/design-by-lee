@@ -48,7 +48,7 @@ function Carousel({ images = [], onImageClick }) {
     hoverScale: 1.125,
     shiftDistance: 20,
     blurAmount: 4,
-    verticalOffset: 60
+    verticalOffset: 84
   };
 
   // Centralized transition strings
@@ -106,7 +106,7 @@ function Carousel({ images = [], onImageClick }) {
         }`} 
         style={{ 
           gap: '24px',
-          transform: isMobile ? 'none' : 'translateY(-60px)'
+          transform: isMobile ? 'none' : 'translateY(0)'
         }}
       >
         {images.map((image, index) => {
@@ -133,7 +133,7 @@ function Carousel({ images = [], onImageClick }) {
               <div 
                 className="w-full h-full bg-white shadow-lg overflow-hidden"
                 style={{
-                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? 0 : ANIMATION.verticalOffset)}px)`,
+                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? ANIMATION.verticalOffset : -ANIMATION.verticalOffset)}px)`,
                   transformOrigin: 'center',
                   filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
                   willChange: 'transform, filter',
