@@ -1,6 +1,6 @@
 # Design by Lee
 
-A modern portfolio website showcasing industrial design projects with an interactive image carousel.
+Portfolio website for industrial design projects, featuring an interactive carousel gallery.
 
 ## Tech Stack
 
@@ -11,22 +11,17 @@ A modern portfolio website showcasing industrial design projects with an interac
 ## Getting Started
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-
-# Build for production
 npm run build
 ```
 
 ## Features
 
-- Interactive project gallery with hover animations
-- Responsive design for all devices
-- Individual project detail pages
-- Clean navigation and minimalist aesthetic
+- Interactive gallery with hover animations
+- Responsive across devices
+- Individual project pages
+- Minimalist navigation
 
 ## Projects
 
@@ -39,7 +34,7 @@ npm run build
 
 ## Deployment
 
-Built with HashRouter for easy deployment to static hosting platforms like GitHub Pages, Netlify, or Vercel.
+Uses HashRouter to work on static hosting (GitHub Pages, Netlify, Vercel).
 
 ## License
 
