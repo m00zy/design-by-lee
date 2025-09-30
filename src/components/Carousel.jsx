@@ -171,14 +171,9 @@ function Carousel({ images = [], onImageClick }) {
                         transition: TRANSITIONS.opacityAndTransform
                       }}
                     >
-                      <h3 className="text-[13px] font-light tracking-wide mb-1">
+                      <h3 className="text-[15px] font-light tracking-wide">
                         {image.title}
                       </h3>
-                      {image.description && (
-                        <p className="text-[12px] opacity-90 font-light line-clamp-3">
-                          {image.description}
-                        </p>
-                      )}
                     </div>
                   </div>
                 )}
