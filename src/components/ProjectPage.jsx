@@ -54,8 +54,17 @@ function ProjectPage() {
     // Scroll to top when component mounts or projectId changes
     window.scrollTo(0, 0);
     
+    // Enable scrolling for project pages
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.overflow = 'auto';
+    
     const id = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(id);
+    return () => {
+      cancelAnimationFrame(id);
+      // Reset overflow when leaving project page
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    };
   }, [projectId]);
   
   const project = projects.find(p => p.id === projectId);

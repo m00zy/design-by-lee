@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+  }
+  
+  #root {
+    height: 100vh;
+  }
+}
+
 @layer components {
   @media (min-width: 768px) {
     .project-card:nth-child(even) {
