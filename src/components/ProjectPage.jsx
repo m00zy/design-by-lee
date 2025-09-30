@@ -15,7 +15,7 @@ function TextWithLinks({ text, links = [] }) {
           href={link.url} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-gray-600 hover:text-gray-900 transition-colors cursor-pointer border-b border-gray-300 hover:border-gray-600"
+          className="text-gray-700 hover:text-gray-900 transition-colors cursor-pointer border-b border-gray-400 hover:border-gray-700"
         >
           {link.text}
         </a>
@@ -33,7 +33,7 @@ function TextWithLinks({ text, links = [] }) {
   };
 
   return (
-    <div className="text-lg text-gray-600 mb-8 leading-relaxed">
+    <div className="text-gray-700 mb-8 leading-relaxed">
       {text.split('\n').map((paragraph, index) => (
         paragraph.trim() && (
           <p key={index} className="mb-4 last:mb-0">
@@ -59,6 +59,12 @@ function ProjectPage() {
   }, [projectId]);
   
   const project = projects.find(p => p.id === projectId);
+  
+  useEffect(() => {
+    if (project) {
+      document.title = project.title;
+    }
+  }, [project]);
   
   if (!project) {
     return (
