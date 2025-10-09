@@ -84,21 +84,6 @@ function ProjectPage() {
 
   return (
     <div className={`min-h-screen bg-white transition-opacity duration-1000 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      {/* Header */}
-      <div className="border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <button 
-            onClick={() => navigate('/')}
-            className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Portfolio
-          </button>
-        </div>
-      </div>
-
       {/* Project Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-start">

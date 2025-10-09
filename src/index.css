@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
 @layer components {
   @media (min-width: 768px) {
     .project-card:nth-child(even) {

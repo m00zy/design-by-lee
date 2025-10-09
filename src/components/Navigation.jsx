@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const SOCIAL_LINKS = {
   instagram: {
     url: 'https://www.instagram.com/marcuslee.design?igsh=aXF2MzFxMnhvYWg5',
@@ -13,8 +15,15 @@ const SOCIAL_LINK_CLASSES = "text-gray-600 hover:text-gray-900 transition-colors
 
 function Navigation() {
   return (
-    <nav className="flex justify-end items-center px-8 py-4">
-      <div className="flex items-center space-x-12">
+    <nav className="flex justify-end items-center px-8 py-8 md:py-4">
+      <div className="flex items-center space-x-3">
+        <Link
+          to="/"
+          className="text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 hover:bg-gray-100 rounded-lg uppercase"
+        >
+          Projects
+        </Link>
+        
         <div className="flex items-center space-x-6">
           <a 
             href={SOCIAL_LINKS.instagram.url}
