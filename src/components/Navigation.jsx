@@ -19,9 +19,9 @@ function Navigation() {
       <div className="flex items-center space-x-3">
         <Link
           to="/"
-          className="text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 hover:bg-gray-100 rounded-lg uppercase"
+          className="text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 hover:bg-gray-100 rounded-lg uppercase tracking-[0.25em]"
         >
-          Projects
+          Home
         </Link>
         
         <div className="flex items-center space-x-6">
