@@ -26,12 +26,16 @@ function Carousel({ images = [], onImageClick }) {
   }, [isMobile]);
 
   const handleMouseEnter = useCallback((index) => {
-    setHoveredIndex(index);
-  }, []);
+    if (!isMobile) {
+      setHoveredIndex(index);
+    }
+  }, [isMobile]);
 
   const handleMouseLeave = useCallback(() => {
-    setHoveredIndex(null);
-  }, []);
+    if (!isMobile) {
+      setHoveredIndex(null);
+    }
+  }, [isMobile]);
 
   const handleImageClick = useCallback((imageId) => {
     onImageClick?.(imageId);
@@ -116,7 +120,7 @@ function Carousel({ images = [], onImageClick }) {
             <div
               key={image.id || index}
               className={`project-card relative cursor-pointer ${
-                state.isHovered ? 'z-20' : state.isOtherHovered ? 'opacity-70' : ''
+                state.isHovered ? 'z-20' : (state.isOtherHovered && !isMobile) ? 'opacity-70' : ''
               }`}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -133,9 +137,9 @@ function Carousel({ images = [], onImageClick }) {
               <div 
                 className="w-full h-full bg-white shadow-lg overflow-hidden"
                 style={{
-                  transform: `scale(${state.isHovered ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft ? -ANIMATION.shiftDistance : state.shouldShiftRight ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? ANIMATION.verticalOffset : -ANIMATION.verticalOffset)}px)`,
+                  transform: `scale(${state.isHovered && !isMobile ? ANIMATION.hoverScale : 1}) translateX(${state.shouldShiftLeft && !isMobile ? -ANIMATION.shiftDistance : state.shouldShiftRight && !isMobile ? ANIMATION.shiftDistance : 0}px) translateY(${isMobile ? 0 : (state.isEven ? ANIMATION.verticalOffset : -ANIMATION.verticalOffset)}px)`,
                   transformOrigin: 'center',
-                  filter: `blur(${state.isOtherHovered ? ANIMATION.blurAmount : 0}px)`,
+                  filter: `blur(${state.isOtherHovered && !isMobile ? ANIMATION.blurAmount : 0}px)`,
                   willChange: 'transform, filter',
                   transition: isResizing ? 'none' : TRANSITIONS.transformAndFilter
                 }}
