@@ -37,7 +37,7 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div style={{ height: 'calc(100vh - 80px)' }} className="flex items-center justify-center overflow-hidden pb-12">
       <Carousel images={projects} onImageClick={handleImageClick} />
     </div>
   );
