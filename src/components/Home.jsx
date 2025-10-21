@@ -8,12 +8,25 @@ function Home() {
 
   useEffect(() => {
     document.title = 'Marcus Lee Studio';
-    // Hide scrollbar on home page
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    
+    // Only hide scrollbar on desktop (where everything fits on one screen)
+    const checkAndSetOverflow = () => {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+    };
+    
+    checkAndSetOverflow();
+    window.addEventListener('resize', checkAndSetOverflow);
     
     // Cleanup: restore scrollbar when leaving home page
     return () => {
+      window.removeEventListener('resize', checkAndSetOverflow);
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
