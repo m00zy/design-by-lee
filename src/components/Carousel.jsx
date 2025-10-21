@@ -109,7 +109,7 @@ function Carousel({ images = [], onImageClick }) {
       }`} 
       style={{ 
         gap: '24px',
-        transform: isMobile ? 'none' : 'translateY(0)'
+        transform: isMobile ? 'none' : 'translateY(-40px)'
       }}
     >
         {images.map((image, index) => {
