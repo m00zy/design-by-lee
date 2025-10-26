@@ -33,7 +33,7 @@ function TextWithLinks({ text, links = [] }) {
   };
 
   return (
-    <div className="text-gray-700 mb-8 leading-relaxed">
+    <div className="text-gray-700 mb-8 leading-relaxed text-[15px]">
       {text.split('\n').map((paragraph, index) => (
         paragraph.trim() && (
           <p key={index} className="mb-4 last:mb-0">
@@ -109,7 +109,7 @@ function ProjectPage() {
 
           {/* Project Details */}
           <div className="lg:pt-8">
-            <h1 className="text-3xl font-normal mb-4">{project.title}</h1>
+            <h1 className="text-[28px] font-normal mb-4">{project.title}</h1>
             <TextWithLinks 
               text={project.details.fullDescription} 
               links={project.details.links}
@@ -120,14 +120,14 @@ function ProjectPage() {
                 <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-2">
                   Material
                 </h3>
-                <p className="text-gray-700">{project.details.materials}</p>
+                <p className="text-gray-700 text-sm">{project.details.materials}</p>
               </div>
 
               <div>
                 <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-2">
                   Year
                 </h3>
-                <p className="text-gray-700">{project.details.year}</p>
+                <p className="text-gray-700 text-sm">{project.details.year}</p>
               </div>
             </div>
           </div>
