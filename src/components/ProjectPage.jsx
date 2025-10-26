@@ -54,8 +54,12 @@ function ProjectPage() {
     // Scroll to top when component mounts or projectId changes
     window.scrollTo(0, 0);
     
-    const id = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(id);
+    setIsVisible(false);
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, [projectId]);
   
   const project = projects.find(p => p.id === projectId);
@@ -83,7 +87,10 @@ function ProjectPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white transition-opacity duration-1000 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div 
+      className={`min-h-screen bg-white transition-opacity ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      style={{ transitionDuration: '1500ms' }}
+    >
       {/* Project Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
