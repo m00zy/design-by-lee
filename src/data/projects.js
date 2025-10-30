@@ -107,8 +107,8 @@ The design is minimal, thoughtful, and focused on the quiet beauty of materials 
   {
     id: 'trace-table-lamp',
     images: [
-      'images/trace-table-lamp/03.jpg',
       'images/trace-table-lamp/01.jpg',
+      'images/trace-table-lamp/02.jpg',
       'images/trace-table-lamp/04.jpg'
     ],
     title: 'TRACE TABLE LIGHT',
