@@ -4,6 +4,7 @@ function Carousel({ images = [], onImageClick }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Helper function to get image source
   const getImageSrc = useCallback((image) => {
@@ -24,6 +25,14 @@ function Carousel({ images = [], onImageClick }) {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, [isMobile]);
+
+  // Trigger fade-in animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleMouseEnter = useCallback((index) => {
     if (!isMobile) {
@@ -52,7 +61,10 @@ function Carousel({ images = [], onImageClick }) {
     hoverScale: 1.125,
     shiftDistance: 20,
     blurAmount: 4,
-    verticalOffset: 84
+    verticalOffset: 84,
+    fadeInDuration: 1200,
+    fadeInDelayBottom: 80,  // Bottom images (even) start earlier
+    fadeInDelayTop: 350     // Top images (odd) start later
   };
 
   // Centralized transition strings
@@ -99,6 +111,7 @@ function Carousel({ images = [], onImageClick }) {
       isEven: index % 2 === 0,
       shouldShiftLeft: hoveredIndex !== null && index < hoveredIndex,
       shouldShiftRight: hoveredIndex !== null && index > hoveredIndex,
+      fadeInDelay: index % 2 === 0 ? ANIMATION.fadeInDelayBottom : ANIMATION.fadeInDelayTop,
     }));
   }, [hoveredIndex, images.length]);
 
@@ -130,7 +143,16 @@ function Carousel({ images = [], onImageClick }) {
                 flexShrink: 0,
                 zIndex: state.isHovered ? 20 : 10 - index,
                 willChange: 'transform, opacity',
-                transition: TRANSITIONS.opacity
+                opacity: isMobile 
+                  ? 1
+                  : (!isLoaded 
+                      ? 0 
+                      : (state.isOtherHovered && !isMobile ? 0.7 : 1)),
+                transition: isMobile 
+                  ? TRANSITIONS.opacity
+                  : (!isLoaded
+                      ? 'none'
+                      : `opacity ${ANIMATION.fadeInDuration}ms ease-out ${state.fadeInDelay}ms`)
               }}
             >
               <div 
