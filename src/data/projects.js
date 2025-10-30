@@ -35,13 +35,7 @@ Introducing the "Hatch" coffee table, a stunning piece inspired by the elegance 
     details: {
       materials: 'American White Oak',
       year: '2024',
-      fullDescription: `
-Introducing Rook Stool, a versatile and modern design piece suitable for residential and commercial interior spaces.
-
-Made from American White Oak stained in black, Rook is an object made to last.
-
-By using unique woodworking techniques, the seat is supported by a plane, making this its main characteristic and appeal.
-      `.trim(),
+      fullDescription: `Introducing Rook Stool, a versatile and modern design piece suitable for residential and commercial interior spaces. Made from American White Oak stained in black, Rook is an object made to last. By using unique woodworking techniques, the seat is supported by a plane, making this its main characteristic and appeal.`.trim(),
       links: [
         {
           text: 'Kiosk Store',
